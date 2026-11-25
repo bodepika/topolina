@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14070c">
+<title>Para você ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+
+<!-- Intro -->
+<div id="loader">
+  <div class="loader-in">
+    <svg class="lheart" viewBox="0 0 100 90" aria-hidden="true">
+      <path id="lheart" pathLength="1" d="M50 82 C20 62 4 46 4 28 C4 14 15 4 28 4 C38 4 46 10 50 18 C54 10 62 4 72 4 C85 4 96 14 96 28 C96 46 80 62 50 82 Z"/>
+    </svg>
+    <div class="pct"><span id="pct">0</span><small>%</small></div>
+    <p class="loader-txt">preparando algo só seu</p>
+    <button id="enter" class="btn magnetic" data-cursor="♥">Toque para entrar</button>
+  </div>
+</div>
+
+<div id="glow" aria-hidden="true"></div>
+<div id="bg" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="cursor" aria-hidden="true"><div class="ring"><span></span></div><div class="dot"></div></div>
+<div id="progress" aria-hidden="true"></div>
+<button id="sound" class="magnetic" aria-label="Ligar ou desligar música" hidden><i></i><i></i><i></i><i></i></button>
+
+<main>
+  <section id="hero">
+    <div class="hero-inner">
+      <p class="eyebrow" id="from"></p>
+      <h1 id="heroName"></h1>
+      <p class="sub"><span class="nick-wrap"><span id="nick"></span></span></p>
+    </div>
+    <div class="scroll-cue"><span>role devagar</span><i></i></div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+  <section id="time">
+    <p class="eyebrow reveal">juntos há</p>
+    <div class="days reveal"><span id="days">0</span></div>
+    <p class="days-label reveal">dias</p>
+    <div class="hms reveal">
+      <div><b id="hh">00</b><span>horas</span></div>
+      <div><b id="mm">00</b><span>minutos</span></div>
+      <div><b id="ss">00</b><span>segundos</span></div>
+    </div>
+    <p class="since reveal" id="since"></p>
+    <p class="beats reveal">≈ <b id="beats">0</b> batidas do meu coração por você</p>
+  </section>
+
+  <div id="phrases"></div>
+
+  <section id="gallery">
+    <div class="track" id="track">
+      <div class="gal-intro">
+        <p class="eyebrow">nossos momentos</p>
+        <h2>Capítulos<br><em>de nós</em></h2>
+        <p class="hint">arraste a página para baixo →</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="feature" hidden>
+    <figure class="polaroid" id="polaroid" data-cursor="♥">
+      <div class="polaroid-in"><img id="featureImg" alt=""><div class="glare"></div></div>
+    </figure>
+    <p class="feature-text" id="featureText"></p>
+    <svg class="ecg" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true">
+      <path id="ecg" pathLength="1" d="M0 40 H170 L185 40 L195 22 L205 40 L220 40 L232 6 L246 74 L258 40 L280 40 L296 28 L312 40 H600"/>
+    </svg>
+  </section>
+
+  <section id="letter">
+    <p class="eyebrow reveal">tenho uma coisa pra você</p>
+    <h2 class="reveal">Uma carta, <em>só sua</em></h2>
+    <div class="envelope reveal" id="envelope" role="button" tabindex="0" aria-label="Abrir a carta" data-cursor="abrir">
+      <div class="env-back"></div>
+      <div class="paper"><span>para você ♥</span></div>
+      <div class="env-front"></div>
+      <div class="flap"></div>
+      <div class="seal">♥</div>
+    </div>
+    <p class="hint reveal">toque no envelope</p>
+  </section>
+
+  <section id="finale">
+    <p class="eyebrow reveal">última coisa</p>
+    <h2 class="reveal" id="holdTitle">Segure o coração</h2>
+    <button id="hold" aria-label="Segure o coração" data-cursor="segure">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="track-c" cx="60" cy="60" r="54"/>
+        <circle id="holdRing" cx="60" cy="60" r="54"/>
+      </svg>
+      <span class="hold-heart">♥</span>
+    </button>
+    <div id="finalMsg" aria-live="polite"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+
+<!-- Carta aberta -->
+<div id="letterModal" role="dialog" aria-modal="true" aria-label="Carta">
+  <div class="sheet">
+    <button class="close" id="letterClose" aria-label="Fechar">×</button>
+    <div id="letterText"></div>
+    <p class="sign" id="letterSign"></p>
+  </div>
+</div>
+
+<!-- Visualizador de fotos -->
+<div id="lb" role="dialog" aria-modal="true" aria-label="Foto">
+  <button class="close" id="lbClose" aria-label="Fechar">×</button>
+  <button class="nav prev" id="lbPrev" aria-label="Anterior">‹</button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="nav next" id="lbNext" aria-label="Próxima">›</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
